@@ -1,6 +1,6 @@
 import React from 'react'
-import SinglePost from './singlePost.jsx'
-import Sidebar from './sidebar.jsx'
+import SinglePost from '../companents/singlePost.jsx'
+import Sidebar from '../companents/sidebar.jsx'
 
 
 export default function Post() {

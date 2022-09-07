@@ -1,7 +1,23 @@
 import React from 'react'
 import "../style.css"
-export default function Navbar() {
-  const user = true ;
+import {Link} from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
+import {signOut} from 'firebase/auth';
+import { auth } from '../firebase'
+import {useAuthState} from 'react-firebase-hooks/auth'
+
+
+export default function Navbar(props) {
+  let Navigate = useNavigate();
+
+  const [user] = useAuthState(auth)
+
+  const SignUserOut =()=> {
+    signOut(auth).then(()=>{
+      localStorage.clear();
+      Navigate("/login");
+    })
+  }
   return (
     <div>
        <nav className="nav fixed w-full z-10 top-0 bg-white">
@@ -13,15 +29,27 @@ export default function Navbar() {
           </div>
           <div className="nav-center">
             <ul className='listTOp'>
-              <li className='listTopItem'>HOME</li>
-              <li className='listTopItem'>ABOUT</li>
-              <li className='listTopItem'>CONTACT</li>
-              <li className='listTopItem'>WRITE</li>
-             {user ?<li className='listTopItem'>LOGOUT</li> : ""} 
+              <li className='listTopItem'>
+                <Link to="/">HOME</Link>
+              </li>
+              <li className='listTopItem'>
+                <Link to="/">ABOUT</Link>
+                </li>
+              <li className='listTopItem'>
+                <Link to="/">CONTACT</Link>
+                </li>
+              <li className='listTopItem'>
+                <Link to="/write">WRITE</Link>
+                </li>
+             {!user? 
+              <li className='listTopItem'><Link to="/login">LOGIN</Link></li>
+             : 
+              <li className='listTopItem ml-2'> <button onClick={SignUserOut}>LOG OUT</button></li> 
+             } 
             </ul>
           </div>
           {
-            user ?
+            user?
             <div className="nav-right relative ml-3">
             <div>     
               <button type="button"  className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800" 
@@ -41,7 +69,7 @@ export default function Navbar() {
 
             
           </div> :
-          <p className='nav-right'>LOGIN</p>
+          <p className='nav-right'></p>
 }
           
        </nav>

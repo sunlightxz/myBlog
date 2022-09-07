@@ -1,8 +1,13 @@
+import {useState} from 'react'
 import Navbar from './companents/navbar'
-import Home from './companents/home'
-import Write from './companents/write.jsx'
-import Post from './companents/post.jsx'
-import NotFound from './companents/notfound.jsx'
+import Home from './pages/home'
+import Write from './pages/write.jsx'
+import Post from './pages/post.jsx'
+import NotFound from './pages/notfound.jsx'
+import Login from './pages/login'
+import {auth} from './firebase'
+import {useAuthState} from 'react-firebase-hooks/auth'
+
 import {
   BrowserRouter,
   Routes,
@@ -11,6 +16,7 @@ import {
 
 
 function App() {
+  const [user]=  useAuthState(auth)
   return (
     <BrowserRouter>
         <Navbar/>
@@ -18,6 +24,7 @@ function App() {
           <Route exact path='/' element = {<Home/>}/>       
           <Route exact path='/write' element = {<Write/>}/> 
           <Route exact path='/post' element = {<Post/>}/>
+          <Route path="/login" element={<Login/>}/>
           <Route path="*" element={<NotFound/>}/>
         </Routes>
     </BrowserRouter>
