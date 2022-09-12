@@ -4,9 +4,11 @@ import Sidebar from '../companents/sidebar.jsx'
 
 
 export default function Post() {
+  
+  
   return (
     <selection className="flex mt-14">
-     <SinglePost/>
+     <SinglePost />
      <Sidebar/>
     </selection>
   )

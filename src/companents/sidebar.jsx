@@ -14,6 +14,7 @@ export default function Sidebar() {
 
         <div className="slidebar-item">
             <h3 className='p-2 mt-4 mb-4 flex justify-center border-t-2 border-b-2'>CATEGORIES</h3>
+            <input className='border py-2 px-3' type="text" placeholder='search' id="" />
            <ul className='mb-2'>
             <li className='inline-block w-1/2 mt-2 cursor-pointer'>Life</li>
             <li className='inline-block	w-1/2 mt-2 cursor-pointer'>Sport</li>
