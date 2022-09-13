@@ -22,8 +22,19 @@ export default function Write() {
   const [imageUpload, setImageUpload] = useState(null);
   const [imageUrls, setImageUrls] = useState([]);
   const {id} = new useParams()
+  const [category,setCategory] = useState("");
   let navigate = useNavigate();
-  
+
+  const categoryOption = [
+    "Cinema",
+    "Style",
+    "Food",
+    "Life",
+    "Sports",
+    "Tech",
+    "Music Life"
+  ];
+
   const imagesListRef = ref(storage, "images/");
   useEffect(() => {
     listAll(imagesListRef).then((response) => {
@@ -48,6 +59,7 @@ export default function Write() {
             title,
             postText,
             imageUrl: url,
+            category,
             author: { name: auth.currentUser.displayName, id: auth.currentUser.uid , profilePic:auth.currentUser.photoURL,timestamp: serverTimestamp()},
           });
         });
@@ -65,6 +77,7 @@ export default function Write() {
             title,
             postText,
             imageUrl: url,
+            category,
             author: { name: auth.currentUser.displayName, id: auth.currentUser.uid , profilePic:auth.currentUser.photoURL,timestamp: serverTimestamp()},          });
        });
         });
@@ -83,7 +96,10 @@ export default function Write() {
       navigate("/login");
     }
   }, []);
+  function handleChange(event){
+    setCategory(event.target.value);
 
+  }
   return (
     <div className=" pt-14 w-full">
        <img className=' object-cover rounded-md h-64 w-3/4 mx-auto mt-14' src="https://images.unsplash.com/photo-1491002052546-bf38f186af56?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1208&q=80" alt="" /> 
@@ -104,6 +120,28 @@ export default function Write() {
             }}
           />
         </div>
+        <div className="py-3 text-center">
+          
+          <select
+              id="category"
+              value={category}
+              onChange={handleChange}
+              name="category"
+              className="w-8/12 h-11">
+
+              <option>Please select category</option>
+                {
+                categoryOption.map((option, index) => 
+                (
+                 <option value={option || ""} key={index}>
+                  {option}
+                 </option>
+                ))
+              }
+
+          </select>
+
+         </div>
         <div className="ml-36 ">
         <textarea
             className='text-xl py-3 px-4 w-8/12 focus:outline-none h-56 text-gray-700 resize-none'
@@ -112,8 +150,6 @@ export default function Write() {
               setPostText(event.target.value);
             }}
           />
-        {/* <textarea class=" border rounded-md block appearance-none placeholder-gray-500 placeholder-opacity-100 border border-light-blue-400 rounded-md w-full py-3 px-4 text-gray-700 leading-5 focus:outline-none focus:ring-2 focus:ring-light-blue-300 h-56" placeholder="Message" required=""></textarea> */}
-
           <button onClick={createPost} className='absolute top-22 right-10 text-white bg-green-700 px-3 py-2 rounded-md cursor-pointer'>
             {id ? "Update Post" : "Submit Post"}
           </button>

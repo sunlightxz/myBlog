@@ -10,7 +10,7 @@ import Contact from './pages/contact'
 import {auth} from './firebase'
 import {useAuthState} from 'react-firebase-hooks/auth'
 import {
-  BrowserRouter,
+  HashRouter,
   Routes,
   Route,
 } from "react-router-dom";
@@ -19,7 +19,7 @@ import {
 function App() {
   const [user]=  useAuthState(auth)
   return (
-    <BrowserRouter>
+    <HashRouter>
         <Navbar/>
         <Routes>
           <Route exact path='/' element = {<Home/>}/>       
@@ -31,7 +31,7 @@ function App() {
           <Route path="/update/:id" element={ <Write/>  }/>
           <Route path="*" element={<NotFound/>}/>
         </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
