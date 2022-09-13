@@ -53,13 +53,14 @@ export default function Navbar(props) {
           </div>
           {
             user?
-        <div className="nav-right relative ml-3">
-            <div>     
+        <div className="nav-right relative ml-3  ">
+            <div className=" flex justify-center items-center">     
               <button type="button" onClick={Open} className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800" 
               id="user-menu-button"  data-dropdown-toggle="dropdown" aria-expanded="false" aria-haspopup="true">
                <span className="sr-only">Open user menu</span>
                <img className="nav-prfl h-8 w-8 rounded-full" src={auth.currentUser.photoURL} alt="" />
               </button>
+              <p className="text-xl italic font-light text-gray-600 ml-2 ">{auth.currentUser.displayName}</p>
             </div>
 
 
